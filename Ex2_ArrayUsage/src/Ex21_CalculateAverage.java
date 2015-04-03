@@ -4,7 +4,7 @@
  */
 public class Ex21_CalculateAverage {
     public static void main(String[] args) {
-        double sum = 0.0;
+        int sum = 0;
         int[] score = new int[30];
         double tempScore;
         int trimmedTempScore;
@@ -14,10 +14,10 @@ public class Ex21_CalculateAverage {
             score[i - 1] = trimmedTempScore;
             sum += trimmedTempScore;
 
-            System.out.println("Generated student #" + i + "'s score: " + trimmedTempScore + " <-- " + tempScore);
+            System.out.println("Generated student #" + i + "'s score: " + score[i - 1] + " <-- " + tempScore);
         }
         System.out.println("------");
         System.out.println("Sum is: " + sum);
-        System.out.println("Average is: " + sum / 30.0);
+        System.out.println("Average is: " + (double) Math.round(sum / 30.0 * 100) / 100.0);
     }
 }
