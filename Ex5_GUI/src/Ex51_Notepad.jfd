@@ -62,14 +62,14 @@ new FormModel {
 					"text": "About"
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemAbout"
-						"text": "About"
+						"text": "About this software"
 					} )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "North"
 			} )
 			add( new FormComponent( "javax.swing.JTextArea" ) {
-				name: "textArea"
+				name: "textAreaMain"
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"
 			} )

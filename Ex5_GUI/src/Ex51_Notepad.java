@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+
 /**
  * Created by Mave on 2015/4/17 0010.
  * Extra question: Design a notepad with basic function like open, save, paste, cut, redo, undo and so on.
@@ -19,6 +20,7 @@ public class Ex51_Notepad {
         frame.setLocationRelativeTo(null);
 
     }
+
     public Ex51_Notepad() {
         initComponents();
     }
@@ -40,7 +42,7 @@ public class Ex51_Notepad {
         menuItemPaste = new JMenuItem();
         menuAbout = new JMenu();
         menuItemAbout = new JMenuItem();
-        textArea = new JTextArea();
+        textAreaMain = new JTextArea();
 
         //======== thisPanel ========
         {
@@ -104,13 +106,13 @@ public class Ex51_Notepad {
                     menuAbout.setText("About");
 
                     //---- menuItemAbout ----
-                    menuItemAbout.setText("About");
+                    menuItemAbout.setText("About this software");
                     menuAbout.add(menuItemAbout);
                 }
                 menuBarNavi.add(menuAbout);
             }
             thisPanel.add(menuBarNavi, BorderLayout.NORTH);
-            thisPanel.add(textArea, BorderLayout.CENTER);
+            thisPanel.add(textAreaMain, BorderLayout.CENTER);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -131,6 +133,6 @@ public class Ex51_Notepad {
     private JMenuItem menuItemPaste;
     private JMenu menuAbout;
     private JMenuItem menuItemAbout;
-    private JTextArea textArea;
+    private JTextArea textAreaMain;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
