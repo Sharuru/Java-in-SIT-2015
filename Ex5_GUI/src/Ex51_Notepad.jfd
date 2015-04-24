@@ -14,16 +14,19 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemNew"
 						"text": "New"
+						"accelerator": static javax.swing.KeyStroke getKeyStroke( 78, 130, false )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemNewActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemOpen"
 						"text": "Open"
+						"accelerator": static javax.swing.KeyStroke getKeyStroke( 79, 130, false )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemOpenActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemSave"
 						"text": "Save"
+						"accelerator": static javax.swing.KeyStroke getKeyStroke( 83, 130, false )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemSaveActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
@@ -42,11 +45,13 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemUndo"
 						"text": "Undo"
+						"accelerator": static javax.swing.KeyStroke getKeyStroke( 90, 130, false )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemUndoActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemRedo"
 						"text": "Redo"
+						"accelerator": static javax.swing.KeyStroke getKeyStroke( 90, 195, false )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemRedoActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
@@ -55,14 +60,20 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemCut"
 						"text": "Cut"
+						"accelerator": static javax.swing.KeyStroke getKeyStroke( 88, 130, false )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemCutActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemCopy"
 						"text": "Copy"
+						"accelerator": static javax.swing.KeyStroke getKeyStroke( 67, 130, false )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemCopyActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemPaste"
 						"text": "Paste"
+						"accelerator": static javax.swing.KeyStroke getKeyStroke( 86, 130, false )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemPasteActionPerformed", true ) )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {

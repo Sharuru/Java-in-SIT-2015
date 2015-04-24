@@ -54,15 +54,27 @@ public class Ex51_Notepad {
     }
 
     private void menuItemUndoActionPerformed(ActionEvent e) {
-        if(edit.canUndo()){
+        if (edit.canUndo()) {
             edit.undo();
         }
     }
 
     private void menuItemRedoActionPerformed(ActionEvent e) {
-        if(edit.canRedo()){
+        if (edit.canRedo()) {
             edit.redo();
         }
+    }
+
+    private void menuItemCutActionPerformed(ActionEvent e) {
+        textAreaMain.cut();
+    }
+
+    private void menuItemCopyActionPerformed(ActionEvent e) {
+        textAreaMain.copy();
+    }
+
+    private void menuItemPasteActionPerformed(ActionEvent e) {
+        textAreaMain.paste();
     }
 
     private void initComponents() {
@@ -103,16 +115,19 @@ public class Ex51_Notepad {
 
                     //---- menuItemNew ----
                     menuItemNew.setText("New");
+                    menuItemNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK));
                     menuItemNew.addActionListener(e -> menuItemNewActionPerformed(e));
                     menuOpen.add(menuItemNew);
 
                     //---- menuItemOpen ----
                     menuItemOpen.setText("Open");
+                    menuItemOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
                     menuItemOpen.addActionListener(e -> menuItemOpenActionPerformed(e));
                     menuOpen.add(menuItemOpen);
 
                     //---- menuItemSave ----
                     menuItemSave.setText("Save");
+                    menuItemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
                     menuItemSave.addActionListener(e -> menuItemSaveActionPerformed(e));
                     menuOpen.add(menuItemSave);
                     menuOpen.addSeparator();
@@ -131,25 +146,33 @@ public class Ex51_Notepad {
 
                     //---- menuItemUndo ----
                     menuItemUndo.setText("Undo");
+                    menuItemUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_MASK));
                     menuItemUndo.addActionListener(e -> menuItemUndoActionPerformed(e));
                     menuEdit.add(menuItemUndo);
 
                     //---- menuItemRedo ----
                     menuItemRedo.setText("Redo");
+                    menuItemRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_MASK | KeyEvent.SHIFT_MASK));
                     menuItemRedo.addActionListener(e -> menuItemRedoActionPerformed(e));
                     menuEdit.add(menuItemRedo);
                     menuEdit.addSeparator();
 
                     //---- menuItemCut ----
                     menuItemCut.setText("Cut");
+                    menuItemCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_MASK));
+                    menuItemCut.addActionListener(e -> menuItemCutActionPerformed(e));
                     menuEdit.add(menuItemCut);
 
                     //---- menuItemCopy ----
                     menuItemCopy.setText("Copy");
+                    menuItemCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_MASK));
+                    menuItemCopy.addActionListener(e -> menuItemCopyActionPerformed(e));
                     menuEdit.add(menuItemCopy);
 
                     //---- menuItemPaste ----
                     menuItemPaste.setText("Paste");
+                    menuItemPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_MASK));
+                    menuItemPaste.addActionListener(e -> menuItemPasteActionPerformed(e));
                     menuEdit.add(menuItemPaste);
                 }
                 menuBarNavi.add(menuEdit);
@@ -244,11 +267,11 @@ public class Ex51_Notepad {
         return fileText;
     }
 
-    private static String saveFileText(String fileText){
+    private static String saveFileText(String fileText) {
         JFileChooser fileChooser = new JFileChooser();
-        if(fileChooser.showSaveDialog(fileChooser)==JFileChooser.APPROVE_OPTION){
+        if (fileChooser.showSaveDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
             FileWriter fileWriter;
-            try{
+            try {
                 fileWriter = new FileWriter(fileChooser.getSelectedFile());
                 BufferedWriter bufferedWritter = new BufferedWriter(fileWriter);
                 bufferedWritter.write(fileText);
