@@ -83,6 +83,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemAbout"
 						"text": "About this software"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemAboutActionPerformed", true ) )
 					} )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {

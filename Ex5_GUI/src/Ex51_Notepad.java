@@ -77,6 +77,10 @@ public class Ex51_Notepad {
         textAreaMain.paste();
     }
 
+    private void menuItemAboutActionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(null, "This is a simple notepad programmed by Java.");
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         thisPanel = new JPanel();
@@ -96,6 +100,12 @@ public class Ex51_Notepad {
         menuItemAbout = new JMenuItem();
         scrollPane1 = new JScrollPane();
         textAreaMain = new JTextArea();
+        textAreaMain.getDocument().addUndoableEditListener(new UndoableEditListener() {
+            @Override
+            public void undoableEditHappened(UndoableEditEvent e) {
+                edit = e.getEdit();
+            }
+        });
         menuBar1 = new JMenuBar();
         buttonSave = new JButton();
         buttonUndo = new JButton();
@@ -184,6 +194,7 @@ public class Ex51_Notepad {
 
                     //---- menuItemAbout ----
                     menuItemAbout.setText("About this software");
+                    menuItemAbout.addActionListener(e -> menuItemAboutActionPerformed(e));
                     menuAbout.add(menuItemAbout);
                 }
                 menuBarNavi.add(menuAbout);
