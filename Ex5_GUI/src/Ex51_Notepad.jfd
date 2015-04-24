@@ -10,13 +10,16 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "menuOpen"
 					"text": "File"
+					"mnemonic": 70
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemNew"
 						"text": "New"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemNewActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemOpen"
 						"text": "Open"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemOpenActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemSave"
@@ -28,11 +31,13 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemExit"
 						"text": "Exit"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemExitActionPerformed", true ) )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "menuEdit"
 					"text": "Edit"
+					"mnemonic": 69
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemUndo"
 						"text": "Undo"
@@ -60,6 +65,7 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "menuAbout"
 					"text": "About"
+					"mnemonic": 65
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemAbout"
 						"text": "About this software"
@@ -68,8 +74,11 @@ new FormModel {
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "North"
 			} )
-			add( new FormComponent( "javax.swing.JTextArea" ) {
-				name: "textAreaMain"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textAreaMain"
+				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"
 			} )
