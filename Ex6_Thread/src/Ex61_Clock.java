@@ -22,10 +22,10 @@ public class Ex61_Clock extends JFrame {
         @Override
         public void run() {
             while (true) {
-                EventQueue.invokeLater(() -> lblNewLabel.setText(new SimpleDateFormat("hh:mm:ss").format(new Date())
+                EventQueue.invokeLater(() -> lblNewLabel.setText(new SimpleDateFormat("HH:mm:ss:SS").format(new Date())
                 ));
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -64,7 +64,7 @@ public class Ex61_Clock extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
-        lblNewLabel.setFont(new Font("ËÎÌו", Font.PLAIN, 72));
+        lblNewLabel.setFont(new Font("ËÎÌו", Font.PLAIN, 64));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         contentPane.add(lblNewLabel, BorderLayout.CENTER);
