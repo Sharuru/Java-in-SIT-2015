@@ -67,6 +67,10 @@ public class Ex51_Notepad {
         menuItemAbout = new JMenuItem();
         scrollPane1 = new JScrollPane();
         textAreaMain = new JTextArea();
+        menuBar1 = new JMenuBar();
+        buttonSave = new JButton();
+        buttonUndo = new JButton();
+        buttonRedo = new JButton();
 
         //======== thisPanel ========
         {
@@ -149,6 +153,24 @@ public class Ex51_Notepad {
                 scrollPane1.setViewportView(textAreaMain);
             }
             thisPanel.add(scrollPane1, BorderLayout.CENTER);
+
+            //======== menuBar1 ========
+            {
+
+                //---- buttonSave ----
+                buttonSave.setText("Save");
+                buttonSave.addActionListener(e -> menuItemSaveActionPerformed(e));
+                menuBar1.add(buttonSave);
+
+                //---- buttonUndo ----
+                buttonUndo.setText("Undo");
+                menuBar1.add(buttonUndo);
+
+                //---- buttonRedo ----
+                buttonRedo.setText("Redo");
+                menuBar1.add(buttonRedo);
+            }
+            thisPanel.add(menuBar1, BorderLayout.SOUTH);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -171,6 +193,10 @@ public class Ex51_Notepad {
     private JMenuItem menuItemAbout;
     private JScrollPane scrollPane1;
     private JTextArea textAreaMain;
+    private JMenuBar menuBar1;
+    private JButton buttonSave;
+    private JButton buttonUndo;
+    private JButton buttonRedo;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     //Other methods
