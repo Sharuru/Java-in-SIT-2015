@@ -1,4 +1,9 @@
 import java.awt.*;
+import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.*;
 
 /**
@@ -13,6 +18,8 @@ public class Ex51_Notepad {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Ex51_Notepad");
         frame.setContentPane(new Ex51_Notepad().thisPanel);
+        frame.setTitle("MyNotepad");
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icons\\notepad.gif"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -23,6 +30,21 @@ public class Ex51_Notepad {
 
     public Ex51_Notepad() {
         initComponents();
+    }
+
+    private void menuItemNewActionPerformed(ActionEvent e) {
+        textAreaMain.setText("");
+    }
+
+    private void menuItemExitActionPerformed(ActionEvent e) {
+        System.exit(0);
+    }
+
+    private void menuItemOpenActionPerformed(ActionEvent e) {
+        String text = getFileText();
+        if (text.length() != 0) {
+            textAreaMain.setText(text);
+        }
     }
 
     private void initComponents() {
@@ -42,6 +64,7 @@ public class Ex51_Notepad {
         menuItemPaste = new JMenuItem();
         menuAbout = new JMenu();
         menuItemAbout = new JMenuItem();
+        scrollPane1 = new JScrollPane();
         textAreaMain = new JTextArea();
 
         //======== thisPanel ========
@@ -54,13 +77,16 @@ public class Ex51_Notepad {
                 //======== menuOpen ========
                 {
                     menuOpen.setText("File");
+                    menuOpen.setMnemonic('F');
 
                     //---- menuItemNew ----
                     menuItemNew.setText("New");
+                    menuItemNew.addActionListener(e -> menuItemNewActionPerformed(e));
                     menuOpen.add(menuItemNew);
 
                     //---- menuItemOpen ----
                     menuItemOpen.setText("Open");
+                    menuItemOpen.addActionListener(e -> menuItemOpenActionPerformed(e));
                     menuOpen.add(menuItemOpen);
 
                     //---- menuItemSave ----
@@ -70,6 +96,7 @@ public class Ex51_Notepad {
 
                     //---- menuItemExit ----
                     menuItemExit.setText("Exit");
+                    menuItemExit.addActionListener(e -> menuItemExitActionPerformed(e));
                     menuOpen.add(menuItemExit);
                 }
                 menuBarNavi.add(menuOpen);
@@ -77,6 +104,7 @@ public class Ex51_Notepad {
                 //======== menuEdit ========
                 {
                     menuEdit.setText("Edit");
+                    menuEdit.setMnemonic('E');
 
                     //---- menuItemUndo ----
                     menuItemUndo.setText("Undo");
@@ -104,6 +132,7 @@ public class Ex51_Notepad {
                 //======== menuAbout ========
                 {
                     menuAbout.setText("About");
+                    menuAbout.setMnemonic('A');
 
                     //---- menuItemAbout ----
                     menuItemAbout.setText("About this software");
@@ -112,7 +141,12 @@ public class Ex51_Notepad {
                 menuBarNavi.add(menuAbout);
             }
             thisPanel.add(menuBarNavi, BorderLayout.NORTH);
-            thisPanel.add(textAreaMain, BorderLayout.CENTER);
+
+            //======== scrollPane1 ========
+            {
+                scrollPane1.setViewportView(textAreaMain);
+            }
+            thisPanel.add(scrollPane1, BorderLayout.CENTER);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -133,6 +167,31 @@ public class Ex51_Notepad {
     private JMenuItem menuItemPaste;
     private JMenu menuAbout;
     private JMenuItem menuItemAbout;
+    private JScrollPane scrollPane1;
     private JTextArea textAreaMain;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
+
+    //Other methods
+    private static String getFileText() {
+        String fileText = "";
+        StringBuffer stringBuffer = new StringBuffer();
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
+            FileReader fileReader;
+            try {
+                fileReader = new FileReader(fileChooser.getSelectedFile());
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                while ((fileText = bufferedReader.readLine()) != null) {
+                    stringBuffer.append(fileText + "\r\n");
+                }
+                bufferedReader.close();
+                fileText = stringBuffer.toString();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return fileText;
+    }
 }
