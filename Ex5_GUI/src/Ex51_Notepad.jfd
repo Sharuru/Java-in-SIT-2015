@@ -42,10 +42,12 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemUndo"
 						"text": "Undo"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemUndoActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItemRedo"
 						"text": "Redo"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemRedoActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
 						name: "separator2"
@@ -93,10 +95,12 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "buttonUndo"
 					"text": "Undo"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemUndoActionPerformed", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "buttonRedo"
 					"text": "Redo"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItemRedoActionPerformed", true ) )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "South"

@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.undo.UndoableEdit;
 
 /**
  * Created by Mave on 2015/4/17 0010.
@@ -11,6 +14,8 @@ import javax.swing.*;
 
 
 public class Ex51_Notepad {
+
+    private UndoableEdit edit;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Ex51_Notepad");
@@ -46,6 +51,18 @@ public class Ex51_Notepad {
 
     private void menuItemSaveActionPerformed(ActionEvent e) {
         saveFileText(textAreaMain.getText());
+    }
+
+    private void menuItemUndoActionPerformed(ActionEvent e) {
+        if(edit.canUndo()){
+            edit.undo();
+        }
+    }
+
+    private void menuItemRedoActionPerformed(ActionEvent e) {
+        if(edit.canRedo()){
+            edit.redo();
+        }
     }
 
     private void initComponents() {
@@ -114,10 +131,12 @@ public class Ex51_Notepad {
 
                     //---- menuItemUndo ----
                     menuItemUndo.setText("Undo");
+                    menuItemUndo.addActionListener(e -> menuItemUndoActionPerformed(e));
                     menuEdit.add(menuItemUndo);
 
                     //---- menuItemRedo ----
                     menuItemRedo.setText("Redo");
+                    menuItemRedo.addActionListener(e -> menuItemRedoActionPerformed(e));
                     menuEdit.add(menuItemRedo);
                     menuEdit.addSeparator();
 
@@ -164,10 +183,12 @@ public class Ex51_Notepad {
 
                 //---- buttonUndo ----
                 buttonUndo.setText("Undo");
+                buttonUndo.addActionListener(e -> menuItemUndoActionPerformed(e));
                 menuBar1.add(buttonUndo);
 
                 //---- buttonRedo ----
                 buttonRedo.setText("Redo");
+                buttonRedo.addActionListener(e -> menuItemRedoActionPerformed(e));
                 menuBar1.add(buttonRedo);
             }
             thisPanel.add(menuBar1, BorderLayout.SOUTH);
