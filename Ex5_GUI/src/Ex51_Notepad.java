@@ -1,9 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import javax.swing.*;
 
 /**
@@ -45,6 +42,10 @@ public class Ex51_Notepad {
         if (text.length() != 0) {
             textAreaMain.setText(text);
         }
+    }
+
+    private void menuItemSaveActionPerformed(ActionEvent e) {
+        saveFileText(textAreaMain.getText());
     }
 
     private void initComponents() {
@@ -91,6 +92,7 @@ public class Ex51_Notepad {
 
                     //---- menuItemSave ----
                     menuItemSave.setText("Save");
+                    menuItemSave.addActionListener(e -> menuItemSaveActionPerformed(e));
                     menuOpen.add(menuItemSave);
                     menuOpen.addSeparator();
 
@@ -188,6 +190,23 @@ public class Ex51_Notepad {
                 fileText = stringBuffer.toString();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return fileText;
+    }
+
+    private static String saveFileText(String fileText){
+        JFileChooser fileChooser = new JFileChooser();
+        if(fileChooser.showSaveDialog(fileChooser)==JFileChooser.APPROVE_OPTION){
+            FileWriter fileWriter;
+            try{
+                fileWriter = new FileWriter(fileChooser.getSelectedFile());
+                BufferedWriter bufferedWritter = new BufferedWriter(fileWriter);
+                bufferedWritter.write(fileText);
+                bufferedWritter.flush();
+                bufferedWritter.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
