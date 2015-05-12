@@ -60,7 +60,7 @@ public class Server {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Server();
+                new Ex74_TCPConnServer();
             }
         });
     }
@@ -89,7 +89,7 @@ public class Server {
     }
 
     // 构造放法  
-    public Server() {
+    public Ex74_TCPConnServer() {
         frame = new JFrame("服务器");
         // 更改JFrame的图标：  
         contentArea = new JTextArea();

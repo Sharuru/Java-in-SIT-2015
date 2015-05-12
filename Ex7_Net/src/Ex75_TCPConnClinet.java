@@ -31,7 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.SwingConstants;
 
-public class Client {
+public class Ex75_TCPConnClinet {
 
     private JFrame frame;
     private JList<String> userList;
@@ -62,7 +62,7 @@ public class Client {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Client();
+                new Ex75_TCPConnClinet();
             }
         });
     }
@@ -85,7 +85,7 @@ public class Client {
     }
 
     // 构造方法  
-    public Client() {
+    public Ex75_TCPConnClinet() {
         textArea = new JTextArea();
         textArea.setEditable(false);
         textArea.setForeground(Color.blue);

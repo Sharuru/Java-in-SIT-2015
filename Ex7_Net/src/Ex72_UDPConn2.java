@@ -26,7 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class WinSocketUDP2Ex extends JFrame {
+public class Ex72_UDPConn2 extends JFrame {
 
     private JPanel contentPane;
     DatagramSocket local;
@@ -43,7 +43,7 @@ public class WinSocketUDP2Ex extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    WinSocketUDP2Ex frame = new WinSocketUDP2Ex();
+                    Ex72_UDPConn2 frame = new Ex72_UDPConn2();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -86,7 +86,7 @@ public class WinSocketUDP2Ex extends JFrame {
     /**
      * Create the frame.
      */
-    public WinSocketUDP2Ex() {
+    public Ex72_UDPConn2() {
         setTitle("End2");
         addWindowListener(new WindowAdapter() {
             @Override

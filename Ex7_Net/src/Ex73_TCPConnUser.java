@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 //”√ªß¿‡  
-public class User {
+public class Ex73_TCPConnUser {
     private String name;
     private String ip;
     private Socket socket;
@@ -21,7 +21,7 @@ public class User {
     private PrintWriter writer = null;
 
 
-    public User(String name, String ip) {
+    public Ex73_TCPConnUser(String name, String ip) {
         this.name = name;
         this.ip = ip;
     }
