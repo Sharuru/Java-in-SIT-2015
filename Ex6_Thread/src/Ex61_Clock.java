@@ -6,6 +6,9 @@ import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static javax.swing.JFrame.*;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+
 /**
  * Created by Sharuru on 2015/4/24 0010.
  * Extra question 1: Design a clock with thread controlled.
@@ -58,13 +61,13 @@ public class Ex61_Clock extends JFrame {
 
             }
         });
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
-        lblNewLabel.setFont(new Font("ËÎÌו", Font.PLAIN, 64));
+        lblNewLabel.setFont(new Font("ËÎÌו", Font.PLAIN, 60));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         contentPane.add(lblNewLabel, BorderLayout.CENTER);
