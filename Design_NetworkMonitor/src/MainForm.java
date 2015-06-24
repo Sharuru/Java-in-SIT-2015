@@ -18,7 +18,7 @@ public class MainForm {
     private JLabel labelUploadSpeed;
     private JLabel labelDownloadSpeed;
     private JScrollPane scrollPanelLogs;
-    private JTextArea textAreaLogs;
+    public JTextArea textAreaLogs;
 
     public static void main(String[] args) {
         //Auto generated
@@ -37,8 +37,16 @@ public class MainForm {
         initDeviceList();
         comboBoxNICs.addActionListener(e -> selectedNICUpdate());
         buttonAction.addActionListener(e -> {
-            NetworkHandler NHandler = new NetworkHandler();
-            NHandler.startTracking(comboBoxNICs.getSelectedIndex());
+            if(buttonAction.getText() == "Start tracking"){
+                NetworkHandler NHandler = new NetworkHandler();
+                NHandler.startTracking(comboBoxNICs.getSelectedIndex());
+                buttonAction.setText("Stop tracking");
+            }
+            else if(buttonAction.getText() == "Stop tracking"){
+                System.out.println("I am fucking know this.");
+                buttonAction.setText("Start tracking");
+            }
+
         });
     }
 
@@ -59,7 +67,6 @@ public class MainForm {
 
     private void selectedNICUpdate() {
         textAreaLogs.append(getTime() + " - Current selected NIC is: " + comboBoxNICs.getSelectedItem() + "\n");
-        System.out.println("Update index " + comboBoxNICs.getSelectedIndex());
     }
 
     public void updateLog(String log) {

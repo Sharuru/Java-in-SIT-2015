@@ -15,12 +15,14 @@ public class PacketReceivedHandler implements PacketReceiver{
         if(packet instanceof jpcap.packet.TCPPacket){
             TCPPacket tp = (TCPPacket)packet;
             //Mhandler.updateLog("[Get TCP] From:" + tp.src_ip + ":" + tp.src_port + " To: " + tp.dst_ip + ":" + tp.dst_port + ". Length = " + tp.len);
-            System.out.println("tcp");
+            System.out.println("[Get TCP] From:" + tp.src_ip.toString().substring(1,tp.src_ip.toString().length()-1) + ":" + tp.src_port
+                    + " -> To: " + tp.dst_ip.toString().substring(1,tp.dst_ip.toString().length()-1) + ":" + tp.dst_port + ". Length = " + tp.len);
         }
         else if(packet instanceof jpcap.packet.UDPPacket){
             UDPPacket tp = (UDPPacket)packet;
             //Mhandler.updateLog("[Get UDP] From:" + tp.src_ip + ":" + tp.src_port + " To: " + tp.dst_ip + ":" + tp.dst_port + ". Length = " + tp.len);
-            System.out.println("udp");
+            System.out.println("[Get UDP] From:" + tp.src_ip.toString().substring(1,tp.src_ip.toString().length()-1) + ":" + tp.src_port
+                    + " -> To: " + tp.dst_ip.toString().substring(1,tp.dst_ip.toString().length()-1) + ":" + tp.dst_port + ". Length = " + tp.len);
         }
     }
 }
