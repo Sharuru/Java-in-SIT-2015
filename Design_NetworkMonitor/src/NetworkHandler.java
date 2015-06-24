@@ -14,16 +14,34 @@ public class NetworkHandler {
     protected Thread captureThread;
     JpcapCaptor cap = null;
     MainForm frame;
-    protected PacketReceiver handler = new PacketReceiver() {
+    public PacketReceiver handler = new PacketReceiver() {
+        int count = 0;
+        double Tspeed = 0;
+        double Uspeed = 0;
+
         public void receivePacket(Packet packet) {
             if (packet instanceof jpcap.packet.TCPPacket) {
                 TCPPacket tp = (TCPPacket) packet;
                 frame.dealPacket("[Get TCP] From:" + tp.src_ip.toString().substring(1, tp.src_ip.toString().length() - 1) + ":" + tp.src_port
                         + " -> To: " + tp.dst_ip.toString().substring(1, tp.dst_ip.toString().length() - 1) + ":" + tp.dst_port + ". Length = " + tp.len);
+                Tspeed = Tspeed + tp.len;
+                if (count % 2 == 0) {
+                    Tspeed = Tspeed / 2;
+                    frame.updateTSpeed("TCP speed: " + String.valueOf(Tspeed));
+                    Tspeed = 0;
+                }
+                count++;
             } else if (packet instanceof jpcap.packet.UDPPacket) {
                 UDPPacket up = (UDPPacket) packet;
                 frame.dealPacket("[Get UDP] From:" + up.src_ip.toString().substring(1, up.src_ip.toString().length() - 1) + ":" + up.src_port
                         + " -> To: " + up.dst_ip.toString().substring(1, up.dst_ip.toString().length() - 1) + ":" + up.dst_port + ". Length = " + up.len);
+                Uspeed = Uspeed + up.len;
+                if (count % 2 == 0) {
+                    Uspeed = Uspeed / 2;
+                    frame.updateUSpeed("UDP speed: " + String.valueOf(Uspeed));
+                    Uspeed = 0;
+                }
+                count++;
             }
         }
     };

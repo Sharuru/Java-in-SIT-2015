@@ -15,8 +15,8 @@ public class MainForm {
     private JPanel panelBase;
     private JLabel labelGuide2;
     private JLabel labelGuide3;
-    private JLabel labelUploadSpeed;
-    private JLabel labelDownloadSpeed;
+    private JLabel labelTCPSpeed;
+    private JLabel labelUDPSpeed;
     private JScrollPane scrollPanelLogs;
     private JTextArea textAreaLogs;
 
@@ -28,7 +28,7 @@ public class MainForm {
         frame.pack();
         //Custom set
         frame.setTitle("Net Monitor");
-        frame.setMinimumSize(new Dimension(600, 445));
+        frame.setMinimumSize(new Dimension(650, 445));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -67,16 +67,24 @@ public class MainForm {
         return time.format(nowTime);
     }
 
-    private void selectedNICUpdate() {
+    protected void selectedNICUpdate() {
         textAreaLogs.append(getTime() + " - Current selected NIC is: " + comboBoxNICs.getSelectedItem() + "\n");
     }
 
-    private void updateLog(String log) {
+    protected void updateLog(String log) {
         textAreaLogs.append(getTime() + " - " + log + "\n");
         textAreaLogs.setCaretPosition(textAreaLogs.getText().length());
     }
 
     protected void dealPacket(String s) {
         updateLog(s);
+    }
+
+    protected void updateTSpeed(String s){
+        labelTCPSpeed.setText(s + " B/S");
+    }
+
+    protected void updateUSpeed(String s){
+        labelUDPSpeed.setText(s + " B/S");
     }
 }

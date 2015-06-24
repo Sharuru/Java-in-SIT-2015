@@ -63,20 +63,20 @@
           <text value="Current speed:"/>
         </properties>
       </component>
-      <component id="f105c" class="javax.swing.JLabel" binding="labelUploadSpeed">
+      <component id="f105c" class="javax.swing.JLabel" binding="labelTCPSpeed">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Upload:"/>
+          <text value="TCP speed:"/>
         </properties>
       </component>
-      <component id="ee801" class="javax.swing.JLabel" binding="labelDownloadSpeed">
+      <component id="ee801" class="javax.swing.JLabel" binding="labelUDPSpeed">
         <constraints>
           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Download:"/>
+          <text value="UDP speed:"/>
         </properties>
       </component>
       <scrollpane id="d6bdf" binding="scrollPanelLogs">
