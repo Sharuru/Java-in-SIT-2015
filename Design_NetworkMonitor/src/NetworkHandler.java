@@ -6,6 +6,10 @@ import jpcap.packet.TCPPacket;
 import jpcap.packet.UDPPacket;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Sharuru on 2015/6/24 0024.
@@ -14,34 +18,26 @@ public class NetworkHandler {
     protected Thread captureThread;
     JpcapCaptor cap = null;
     MainForm frame;
-    public PacketReceiver handler = new PacketReceiver() {
-        int count = 0;
-        double Tspeed = 0;
-        double Uspeed = 0;
-
+    double tS = 0;
+    double tCount = 1;
+    double uS = 0;
+    double uCount = 1;
+    ScheduledExecutorService tC = Executors.newSingleThreadScheduledExecutor();
+    ScheduledExecutorService uC = Executors.newSingleThreadScheduledExecutor();
+    protected PacketReceiver handler = new PacketReceiver() {
         public void receivePacket(Packet packet) {
             if (packet instanceof jpcap.packet.TCPPacket) {
                 TCPPacket tp = (TCPPacket) packet;
                 frame.dealPacket("[Get TCP] From:" + tp.src_ip.toString().substring(1, tp.src_ip.toString().length() - 1) + ":" + tp.src_port
                         + " -> To: " + tp.dst_ip.toString().substring(1, tp.dst_ip.toString().length() - 1) + ":" + tp.dst_port + ". Length = " + tp.len);
-                Tspeed = Tspeed + tp.len;
-                if (count % 2 == 0) {
-                    Tspeed = Tspeed / 2;
-                    frame.updateTSpeed("TCP speed: " + String.valueOf(Tspeed));
-                    Tspeed = 0;
-                }
-                count++;
+                tS = tS + tp.len;
+                tCount++;
             } else if (packet instanceof jpcap.packet.UDPPacket) {
                 UDPPacket up = (UDPPacket) packet;
                 frame.dealPacket("[Get UDP] From:" + up.src_ip.toString().substring(1, up.src_ip.toString().length() - 1) + ":" + up.src_port
                         + " -> To: " + up.dst_ip.toString().substring(1, up.dst_ip.toString().length() - 1) + ":" + up.dst_port + ". Length = " + up.len);
-                Uspeed = Uspeed + up.len;
-                if (count % 2 == 0) {
-                    Uspeed = Uspeed / 2;
-                    frame.updateUSpeed("UDP speed: " + String.valueOf(Uspeed));
-                    Uspeed = 0;
-                }
-                count++;
+                uS = uS + up.len;
+                uCount++;
             }
         }
     };
@@ -77,6 +73,20 @@ public class NetworkHandler {
             }
         });
         captureThread.setPriority(Thread.MIN_PRIORITY);
+        tC.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                DecimalFormat df = new DecimalFormat("0.00");
+                double tcpTs = tS / tCount;
+                double udpTs = uS / uCount;
+                frame.updateTSpeed(String.valueOf(df.format(tcpTs).toString()));
+                frame.updateUSpeed(String.valueOf(df.format(udpTs).toString()));
+                tS = 0;
+                tCount = 1;
+                uS = 0;
+                uCount = 1;
+            }
+        }, 0, 1, TimeUnit.SECONDS);
         captureThread.start();
     }
 

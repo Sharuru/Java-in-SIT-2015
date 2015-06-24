@@ -80,11 +80,11 @@ public class MainForm {
         updateLog(s);
     }
 
-    protected void updateTSpeed(String s){
-        labelTCPSpeed.setText(s + " B/S");
+    protected void updateTSpeed(String s) {
+        labelTCPSpeed.setText("TCP speed: " + s + " KB/S");
     }
 
-    protected void updateUSpeed(String s){
-        labelUDPSpeed.setText(s + " B/S");
+    protected void updateUSpeed(String s) {
+        labelUDPSpeed.setText("UDP speed: " + s + " KB/S");
     }
 }
