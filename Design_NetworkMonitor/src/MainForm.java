@@ -1,4 +1,5 @@
 import jpcap.NetworkInterface;
+
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
@@ -41,28 +42,27 @@ public class MainForm {
         });
     }
 
-    private void initDeviceList(){
+    private void initDeviceList() {
         DevicesHandler deviceshandler = new DevicesHandler();
         NetworkInterface[] devices = deviceshandler.listDevices();
-        for(int i =0;i<devices.length;i++){
-            comboBoxNICs.addItem(i+1 + ". " + devices[i].description);
+        for (int i = 0; i < devices.length; i++) {
+            comboBoxNICs.addItem(i + 1 + ". " + devices[i].description);
         }
         selectedNICUpdate();
     }
 
-    private String getTime(){
+    private String getTime() {
         Date nowTime = new Date();
         SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
         return time.format(nowTime);
     }
 
-    private void selectedNICUpdate(){
+    private void selectedNICUpdate() {
         textAreaLogs.append(getTime() + " - Current selected NIC is: " + comboBoxNICs.getSelectedItem() + "\n");
         System.out.println("Update index " + comboBoxNICs.getSelectedIndex());
     }
 
-
-    public void updateLog(String log){
+    public void updateLog(String log) {
         textAreaLogs.append(getTime() + " - " + log + "\n");
     }
 }
