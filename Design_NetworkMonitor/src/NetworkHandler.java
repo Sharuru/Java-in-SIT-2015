@@ -1,19 +1,25 @@
 import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;
 
-import java.io.IOException;
 
 /**
  * Created by Sharuru on 2015/6/24 0024.
  */
 public class NetworkHandler {
-    public void startTracking(int deviceIndex){
+    public void startTracking(int index){
         DevicesHandler Dhandler = new DevicesHandler();
-        MainForm Mhandler = new MainForm();
         NetworkInterface[] devices = Dhandler.listDevices();
+        //MainForm Mhandler = new MainForm();
         try{
-            JpcapCaptor jpcap = JpcapCaptor.openDevice(devices[deviceIndex], 65535, true, 20);
+            System.out.println(index);
+            NetworkInterface nc = devices[index];
+            JpcapCaptor jpcap = JpcapCaptor.openDevice(nc, 65535, true, 20);
             startCapThread(jpcap);
+            //System.out.println("I am trying...");
+           // JpcapCaptor jpcap = JpcapCaptor.openDevice(devices[0], 2000, true, 20);
+            //startCapThread(jpcap);
+            //jpcap.loopPacket(-1, new PacketReceivedHandler());
+            //Mhandler.updateLog("Start tracking on NIC:" + devices[deviceIndex].description);
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -21,13 +27,9 @@ public class NetworkHandler {
     }
 
     public static void startCapThread(final JpcapCaptor jpcap){
-        JpcapCaptor jp = jpcap;
-        java.lang.Runnable rnner = new Runnable() {
-            @Override
-            public void run() {
-                jpcap.loopPacket(-1, new PacketReceivedHandler());
-            }
+        java.lang.Runnable runner = () -> {
+            jpcap.loopPacket(-1, new PacketReceivedHandler());
         };
-        new  Thread(rnner).start();
+        new  Thread(runner).start();
     }
 }

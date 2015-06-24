@@ -32,6 +32,9 @@
           </grid>
         </constraints>
         <properties>
+          <doubleBuffered value="false"/>
+          <editable value="false"/>
+          <focusCycleRoot value="false"/>
           <minimumSize width="250" height="27"/>
           <preferredSize width="250" height="27"/>
         </properties>
@@ -88,6 +91,7 @@
           <component id="eacbe" class="javax.swing.JTextArea" binding="textAreaLogs">
             <constraints/>
             <properties>
+              <editable value="false"/>
               <minimumSize width="0" height="50"/>
             </properties>
           </component>
