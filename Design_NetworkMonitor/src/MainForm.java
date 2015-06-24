@@ -1,5 +1,9 @@
+import javafx.scene.input.DataFormat;
 import jpcap.NetworkInterface;
-
+import java.util.Date;
+import java.util.Locale;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,7 +34,7 @@ public class MainForm {
         frame.pack();
         //Custom set
         frame.setTitle("Net Monitor");
-        frame.setMinimumSize(new Dimension(545, 245));
+        frame.setMinimumSize(new Dimension(1024, 245));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -41,16 +45,30 @@ public class MainForm {
     }
 
     private void initDeviceList(){
-        Models handler = new Models();
-        NetworkInterface[] devices = handler.listDevices();
+        DevicesHandler Dhandler = new DevicesHandler();
+        NetworkInterface[] devices = Dhandler.listDevices();
         for(int i =0;i<devices.length;i++){
             comboBoxNICs.addItem(devices[i].description);
         }
         selectedNICUpdate();
     }
 
+    private String getTime(){
+        Date nowTime = new Date();
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+        return time.format(nowTime);
+    }
+
     private void selectedNICUpdate(){
-        textAreaLogs.append("Current selected NIC is: " + comboBoxNICs.getSelectedItem() + "\n");
+        Date nowTime = new Date();
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+        textAreaLogs.append(getTime() + " - Current selected NIC is: " + comboBoxNICs.getSelectedItem() + "\n");
+    }
+
+    public void updateLog(String log){
+        Date nowTime = new Date();
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+        textAreaLogs.append(getTime() + " - " + log + "\n");
     }
 }
 

@@ -6,7 +6,7 @@ import jpcap.packet.Packet;
 /**
  * Created by Sharuru on 2015/6/24 0024.
  */
-public class Models {
+public class DevicesHandler {
     public NetworkInterface[] listDevices(){
         try{
             final NetworkInterface[] devices = JpcapCaptor.getDeviceList();
@@ -17,6 +17,4 @@ public class Models {
         }
         return new NetworkInterface[0];
     }
-
-
 }
