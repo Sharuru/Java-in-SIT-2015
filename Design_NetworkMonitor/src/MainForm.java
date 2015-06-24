@@ -28,7 +28,7 @@ public class MainForm {
         frame.pack();
         //Custom set
         frame.setTitle("Net Monitor");
-        frame.setMinimumSize(new Dimension(450, 445));
+        frame.setMinimumSize(new Dimension(600, 445));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
