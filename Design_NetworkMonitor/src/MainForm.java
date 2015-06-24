@@ -1,4 +1,3 @@
-import com.sun.org.apache.xalan.internal.xsltc.dom.MultiValuedNodeHeapIterator;
 import jpcap.NetworkInterface;
 
 import javax.swing.*;
@@ -19,7 +18,7 @@ public class MainForm {
     private JLabel labelUploadSpeed;
     private JLabel labelDownloadSpeed;
     private JScrollPane scrollPanelLogs;
-    public JTextArea textAreaLogs;
+    private JTextArea textAreaLogs;
 
     public static void main(String[] args) {
         //Auto generated
@@ -29,31 +28,31 @@ public class MainForm {
         frame.pack();
         //Custom set
         frame.setTitle("Net Monitor");
-        frame.setMinimumSize(new Dimension(800, 445));
+        frame.setMinimumSize(new Dimension(450, 445));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
     public MainForm() {
         initDeviceList();
+        NetworkHandler captor = new NetworkHandler();
         comboBoxNICs.addActionListener(e -> selectedNICUpdate());
         buttonAction.addActionListener(e -> {
-            if(buttonAction.getText() == "Start tracking"){
-                NetworkHandler NHandler = new NetworkHandler();
-                NHandler.trackingControl(comboBoxNICs.getSelectedIndex(), true);
+            if (buttonAction.getText() == "Start tracking") {
+                updateLog("Starting tracking thread...");
+                captor.capturePacketFromDevice(comboBoxNICs.getSelectedIndex());
+                captor.setMainForm(this);
                 buttonAction.setText("Stop tracking");
-            }
-            else if(buttonAction.getText() == "Stop tracking"){
+            } else if (buttonAction.getText() == "Stop tracking") {
+                updateLog("Stopping tracking thread...");
                 buttonAction.setText("Start tracking");
-                NetworkHandler NHandler = new NetworkHandler();
-                NHandler.stopT();
-                //NHandler.trackingControl(comboBoxNICs.getSelectedIndex(), false);
+                captor.stopCapture();
+                updateLog("Tracking stopped.");
             }
-
         });
     }
 
-    private void initDeviceList() {
+    protected void initDeviceList() {
         DevicesHandler deviceshandler = new DevicesHandler();
         NetworkInterface[] devices = deviceshandler.listDevices();
         for (int i = 0; i < devices.length; i++) {
@@ -62,7 +61,7 @@ public class MainForm {
         selectedNICUpdate();
     }
 
-    private String getTime() {
+    protected String getTime() {
         Date nowTime = new Date();
         SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
         return time.format(nowTime);
@@ -72,9 +71,12 @@ public class MainForm {
         textAreaLogs.append(getTime() + " - Current selected NIC is: " + comboBoxNICs.getSelectedItem() + "\n");
     }
 
-    public void updateLog(String log) {
+    private void updateLog(String log) {
         textAreaLogs.append(getTime() + " - " + log + "\n");
+        textAreaLogs.setCaretPosition(textAreaLogs.getText().length());
+    }
+
+    protected void dealPacket(String s) {
+        updateLog(s);
     }
 }
-
-
