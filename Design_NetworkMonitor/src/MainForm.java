@@ -1,3 +1,4 @@
+import com.sun.org.apache.xalan.internal.xsltc.dom.MultiValuedNodeHeapIterator;
 import jpcap.NetworkInterface;
 
 import javax.swing.*;
@@ -28,7 +29,7 @@ public class MainForm {
         frame.pack();
         //Custom set
         frame.setTitle("Net Monitor");
-        frame.setMinimumSize(new Dimension(1024, 245));
+        frame.setMinimumSize(new Dimension(800, 445));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -39,12 +40,14 @@ public class MainForm {
         buttonAction.addActionListener(e -> {
             if(buttonAction.getText() == "Start tracking"){
                 NetworkHandler NHandler = new NetworkHandler();
-                NHandler.startTracking(comboBoxNICs.getSelectedIndex());
+                NHandler.trackingControl(comboBoxNICs.getSelectedIndex(), true);
                 buttonAction.setText("Stop tracking");
             }
             else if(buttonAction.getText() == "Stop tracking"){
-                System.out.println("I am fucking know this.");
                 buttonAction.setText("Start tracking");
+                NetworkHandler NHandler = new NetworkHandler();
+                NHandler.stopT();
+                //NHandler.trackingControl(comboBoxNICs.getSelectedIndex(), false);
             }
 
         });
