@@ -24,6 +24,8 @@ public class MainForm {
     private JLabel labelUDPStatus;
     private JScrollPane scrollPanelLogs;
     private JTextArea textAreaLogs;
+    private JCheckBox checkBoxTCP;
+    private JCheckBox checkBoxUDP;
 
     public static void main(String[] args) {
         //Auto generated
@@ -103,5 +105,13 @@ public class MainForm {
             }
             break;
         }
+    }
+
+    protected boolean isCheckBoxUDPSelected() {
+        return checkBoxUDP.isSelected();
+    }
+
+    protected boolean isCheckBoxTCPSelected() {
+        return checkBoxTCP.isSelected();
     }
 }
