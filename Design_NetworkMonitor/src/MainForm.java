@@ -5,12 +5,16 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
+
+import static java.lang.String.format;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  * Created by Sharuru on 2015/6/23 0023.
  */
 public class MainForm {
-    private JComboBox comboBoxNICs;
+    private JComboBox<String> comboBoxNICs;
     private JButton buttonAction;
     private JLabel labelGuide1;
     private JPanel panelBase;
@@ -25,7 +29,7 @@ public class MainForm {
         //Auto generated
         JFrame frame = new JFrame("MainForm");
         frame.setContentPane(new MainForm().panelBase);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.pack();
         //Custom set
         frame.setTitle("Net Monitor");
@@ -39,15 +43,20 @@ public class MainForm {
         NetworkHandler captor = new NetworkHandler();
         comboBoxNICs.addActionListener(e -> selectedNICUpdate());
         buttonAction.addActionListener(e -> {
-            if (buttonAction.getText() == "Start tracking") {
+            if (Objects.equals(buttonAction.getText(), "Start tracking")) {
                 updateLog("Starting tracking thread...");
                 captor.capturePacketFromDevice(comboBoxNICs.getSelectedIndex());
                 captor.setMainForm(this);
                 buttonAction.setText("Stop tracking");
-            } else if (buttonAction.getText() == "Stop tracking") {
+            } else if (Objects.equals(buttonAction.getText(), "Stop tracking")) {
                 updateLog("Stopping tracking thread...");
                 buttonAction.setText("Start tracking");
                 captor.stopCapture();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
                 updateLog("Tracking stopped.");
             }
         });
@@ -69,7 +78,7 @@ public class MainForm {
     }
 
     protected void selectedNICUpdate() {
-        textAreaLogs.append(getTime() + " - Current selected NIC is: " + comboBoxNICs.getSelectedItem() + "\n");
+        textAreaLogs.append(format("%s - Current selected NIC is: %s\n", getTime(), comboBoxNICs.getSelectedItem()));
     }
 
     protected void updateLog(String log) {
@@ -85,11 +94,11 @@ public class MainForm {
         DecimalFormat df = new DecimalFormat("0.00");
         switch (protocol) {
             case 1: {
-                labelTCPStatus.setText("TCP: " + String.valueOf(df.format(speed)) + " KiB/S " + packetCount + " packets total.");
+                labelTCPStatus.setText(format("TCP: %s KiB/S %d packets total.", String.valueOf(df.format(speed)), packetCount));
             }
             break;
             case 2: {
-                labelUDPStatus.setText("UDP: " + String.valueOf(df.format(speed)) + " KiB/S " + packetCount + " packets total.");
+                labelUDPStatus.setText(format("UDP: %s KiB/S %d packets total.", String.valueOf(df.format(speed)), packetCount));
             }
             break;
         }
