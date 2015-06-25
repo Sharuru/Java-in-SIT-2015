@@ -27,14 +27,14 @@ public class NetworkHandler {
         public void receivePacket(Packet packet) {
             if (packet instanceof jpcap.packet.TCPPacket) {
                 TCPPacket tp = (TCPPacket) packet;
-                frame.dealPacket("[Get TCP] From:" + tp.src_ip.toString().substring(1, tp.src_ip.toString().length() - 1) + ":" + tp.src_port
-                        + " -> To: " + tp.dst_ip.toString().substring(1, tp.dst_ip.toString().length() - 1) + ":" + tp.dst_port + ". Length = " + tp.len);
+                frame.dealPacket("[Get TCP] From:" + tp.src_ip.toString().substring(1, tp.src_ip.toString().length()) + ":" + tp.src_port
+                        + " -> To: " + tp.dst_ip.toString().substring(1, tp.dst_ip.toString().length()) + ":" + tp.dst_port + ". Length = " + tp.len);
                 tS = tS + tp.len;
                 tCount++;
             } else if (packet instanceof jpcap.packet.UDPPacket) {
                 UDPPacket up = (UDPPacket) packet;
-                frame.dealPacket("[Get UDP] From:" + up.src_ip.toString().substring(1, up.src_ip.toString().length() - 1) + ":" + up.src_port
-                        + " -> To: " + up.dst_ip.toString().substring(1, up.dst_ip.toString().length() - 1) + ":" + up.dst_port + ". Length = " + up.len);
+                frame.dealPacket("[Get UDP] From:" + up.src_ip.toString().substring(1, up.src_ip.toString().length()) + ":" + up.src_port
+                        + " -> To: " + up.dst_ip.toString().substring(1, up.dst_ip.toString().length()) + ":" + up.dst_port + ". Length = " + up.len);
                 uS = uS + up.len;
                 uCount++;
             }
