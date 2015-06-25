@@ -85,6 +85,8 @@ public class NetworkHandler {
 
     protected void stopCaptureThread() {
         captureThread = null;
+        tCount = 0;
+        uCount = 0;
     }
 
     protected void stopCapture() {
