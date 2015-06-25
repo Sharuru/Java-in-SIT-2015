@@ -60,23 +60,29 @@
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Current speed:"/>
+          <text value="Current status:"/>
         </properties>
       </component>
-      <component id="f105c" class="javax.swing.JLabel" binding="labelTCPSpeed">
+      <component id="f105c" class="javax.swing.JLabel" binding="labelTCPStatus">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="250" height="-1"/>
+            <preferred-size width="250" height="-1"/>
+          </grid>
         </constraints>
         <properties>
-          <text value="TCP speed:"/>
+          <text value="TCP:"/>
         </properties>
       </component>
-      <component id="ee801" class="javax.swing.JLabel" binding="labelUDPSpeed">
+      <component id="ee801" class="javax.swing.JLabel" binding="labelUDPStatus">
         <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="250" height="-1"/>
+            <preferred-size width="250" height="-1"/>
+          </grid>
         </constraints>
         <properties>
-          <text value="UDP speed:"/>
+          <text value="UDP:"/>
         </properties>
       </component>
       <scrollpane id="d6bdf" binding="scrollPanelLogs">

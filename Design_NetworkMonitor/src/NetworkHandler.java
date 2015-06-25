@@ -6,10 +6,10 @@ import jpcap.packet.TCPPacket;
 import jpcap.packet.UDPPacket;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
 
 /**
  * Created by Sharuru on 2015/6/24 0024.
@@ -19,11 +19,10 @@ public class NetworkHandler {
     JpcapCaptor cap = null;
     MainForm frame;
     double tS = 0;
-    double tCount = 1;
+    int tCount = 0;
     double uS = 0;
-    double uCount = 1;
-    ScheduledExecutorService tC = Executors.newSingleThreadScheduledExecutor();
-    ScheduledExecutorService uC = Executors.newSingleThreadScheduledExecutor();
+    int uCount = 0;
+    ScheduledExecutorService updateExec = newSingleThreadScheduledExecutor();
     protected PacketReceiver handler = new PacketReceiver() {
         public void receivePacket(Packet packet) {
             if (packet instanceof jpcap.packet.TCPPacket) {
@@ -73,19 +72,13 @@ public class NetworkHandler {
             }
         });
         captureThread.setPriority(Thread.MIN_PRIORITY);
-        tC.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                DecimalFormat df = new DecimalFormat("0.00");
-                double tcpTs = tS / tCount;
-                double udpTs = uS / uCount;
-                frame.updateTSpeed(String.valueOf(df.format(tcpTs).toString()));
-                frame.updateUSpeed(String.valueOf(df.format(udpTs).toString()));
-                tS = 0;
-                tCount = 1;
-                uS = 0;
-                uCount = 1;
-            }
+        updateExec.scheduleAtFixedRate(() -> {
+            double tcpTs = tS / 1000;
+            double udpTs = uS / 1000;
+            frame.updateLinkInfo(1, tcpTs, tCount);
+            frame.updateLinkInfo(2, udpTs, uCount);
+            tS = 0;
+            uS = 0;
         }, 0, 1, TimeUnit.SECONDS);
         captureThread.start();
     }

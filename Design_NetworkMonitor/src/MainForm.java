@@ -2,6 +2,7 @@ import jpcap.NetworkInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,8 +16,8 @@ public class MainForm {
     private JPanel panelBase;
     private JLabel labelGuide2;
     private JLabel labelGuide3;
-    private JLabel labelTCPSpeed;
-    private JLabel labelUDPSpeed;
+    private JLabel labelTCPStatus;
+    private JLabel labelUDPStatus;
     private JScrollPane scrollPanelLogs;
     private JTextArea textAreaLogs;
 
@@ -80,11 +81,17 @@ public class MainForm {
         updateLog(s);
     }
 
-    protected void updateTSpeed(String s) {
-        labelTCPSpeed.setText("TCP speed: " + s + " KB/S");
-    }
-
-    protected void updateUSpeed(String s) {
-        labelUDPSpeed.setText("UDP speed: " + s + " KB/S");
+    protected void updateLinkInfo(int protocol, double speed, int packetCount) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        switch (protocol) {
+            case 1: {
+                labelTCPStatus.setText("TCP: " + String.valueOf(df.format(speed)) + " KiB/S " + packetCount + " packets total.");
+            }
+            break;
+            case 2: {
+                labelUDPStatus.setText("UDP: " + String.valueOf(df.format(speed)) + " KiB/S " + packetCount + " packets total.");
+            }
+            break;
+        }
     }
 }
