@@ -34,6 +34,7 @@ public class MainForm {
         //Custom set
         frame.setTitle("Net Monitor");
         frame.setMinimumSize(new Dimension(650, 445));
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\icon\\icon.png"));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
