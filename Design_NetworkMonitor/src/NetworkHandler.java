@@ -16,38 +16,37 @@ import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
  */
 public class NetworkHandler {
     protected Thread captureThread;
-    JpcapCaptor cap = null;
-    MainForm frame;
+    protected JpcapCaptor cap;
+    protected MainForm frame;
+    //Set counter
     double tS = 0;
     int tCount = 0;
     double uS = 0;
     int uCount = 0;
+    //Set timer
     ScheduledExecutorService updateExec = newSingleThreadScheduledExecutor();
-    protected PacketReceiver handler = new PacketReceiver() {
-        public void receivePacket(Packet packet) {
-            if (packet instanceof jpcap.packet.TCPPacket) {
-                if (frame.isCheckBoxTCPSelected()) {
-                    TCPPacket tp = (TCPPacket) packet;
-                    frame.dealPacket("[Get TCP] From:" + tp.src_ip.toString().substring(1, tp.src_ip.toString().length()) + ":" + tp.src_port
-                            + " -> To: " + tp.dst_ip.toString().substring(1, tp.dst_ip.toString().length()) + ":" + tp.dst_port + ". Length = " + tp.len);
-                    tS = tS + tp.len;
-                    tCount++;
-                }
-            } else if (packet instanceof jpcap.packet.UDPPacket) {
-                if (frame.isCheckBoxUDPSelected()) {
-                    UDPPacket up = (UDPPacket) packet;
-                    frame.dealPacket("[Get UDP] From:" + up.src_ip.toString().substring(1, up.src_ip.toString().length()) + ":" + up.src_port
-                            + " -> To: " + up.dst_ip.toString().substring(1, up.dst_ip.toString().length()) + ":" + up.dst_port + ". Length = " + up.len);
-                    uS = uS + up.len;
-                    uCount++;
-                }
-            }
-        }
-    };
 
     protected void setMainForm(MainForm frame) {
         this.frame = frame;
     }
+
+    protected PacketReceiver handler = new PacketReceiver() {
+        public void receivePacket(Packet packet) {
+            if (packet instanceof jpcap.packet.TCPPacket && frame.isCheckBoxTCPSelected()) {
+                TCPPacket tp = (TCPPacket) packet;
+                frame.dealPacket(String.format("[Get TCP] From:%s:%d -> To: %s:%d. Length = %d",
+                        tp.src_ip.toString().substring(1, tp.src_ip.toString().length()), tp.src_port, tp.dst_ip.toString().substring(1, tp.dst_ip.toString().length()), tp.dst_port, tp.len));
+                tS = tS + tp.len;
+                tCount++;
+            } else if (packet instanceof jpcap.packet.UDPPacket && frame.isCheckBoxUDPSelected()) {
+                UDPPacket up = (UDPPacket) packet;
+                frame.dealPacket(String.format("[Get UDP] From:%s:%d -> To: %s:%d. Length = %d",
+                        up.src_ip.toString().substring(1, up.src_ip.toString().length()), up.src_port, up.dst_ip.toString().substring(1, up.dst_ip.toString().length()), up.dst_port, up.len));
+                uS = uS + up.len;
+                uCount++;
+            }
+        }
+    };
 
     protected void capturePacketFromDevice(int deviceIndex) {
         if (cap != null) {
@@ -77,10 +76,13 @@ public class NetworkHandler {
         });
         captureThread.setPriority(Thread.MIN_PRIORITY);
         updateExec.scheduleAtFixedRate(() -> {
+            //Ts = TrueSpeed(Calculated)
             double tcpTs = tS / 1000;
             double udpTs = uS / 1000;
             frame.updateLinkInfo(1, tcpTs, tCount);
             frame.updateLinkInfo(2, udpTs, uCount);
+            frame.updateG(tcpTs,udpTs);
+            //Reset speed
             tS = 0;
             uS = 0;
         }, 0, 1, TimeUnit.SECONDS);
