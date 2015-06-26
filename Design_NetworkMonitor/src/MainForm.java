@@ -37,8 +37,8 @@ public class MainForm {
     private JPanel panelChart;
     private JLabel labelGuide4;
 
-    static ArrayList tcpA = new ArrayList();
-    static ArrayList udpA = new ArrayList();
+/*    static ArrayList tcpA = new ArrayList();
+    static ArrayList udpA = new ArrayList();*/
 
     public static void main(String[] args) {
         //Auto generated
@@ -48,23 +48,14 @@ public class MainForm {
         frame.pack();
         //Custom set
         frame.setTitle("Net Monitor");
-        frame.setMinimumSize(new Dimension(650, 445));
+        frame.setMinimumSize(new Dimension(650, 455));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
     public MainForm() {
-        tcpA.add(0,999.99);
-        tcpA.add(1,888.99);
-        tcpA.add(2,777.99);
-        tcpA.add(3,666.99);
-        tcpA.add(4,555.99);
-        udpA.add(0,999.99);
-        udpA.add(1,888.99);
-        udpA.add(2,777.99);
-        udpA.add(3,666.99);
-        udpA.add(4,555.99);
         initDeviceList();
+        ChartHandler.initSpeedArrayList(10);
         NetworkHandler captor = new NetworkHandler();
         comboBoxNICs.addActionListener(e -> selectedNICUpdate());
         buttonAction.addActionListener(e -> {
@@ -133,7 +124,7 @@ public class MainForm {
         System.out.println("I am called");
         panelChart.removeAll();
         panelChart.revalidate();
-        JFreeChart chart = ChartFactory.createXYAreaChart("Traffic history", "Time", "Speed", createDataset(newTcpSpeed, newUdpSpeed), PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart chart = ChartFactory.createXYAreaChart("Traffic history", "Time", "Speed", ChartHandler.createDataset(newTcpSpeed, newUdpSpeed), PlotOrientation.VERTICAL, true, true, false);
         System.out.println("From 2  back");
         ChartPanel localChartPanel = new ChartPanel(chart, false);
         localChartPanel.setSize(panelChart.getWidth(), panelChart.getHeight());
@@ -143,7 +134,7 @@ public class MainForm {
         System.out.println("Rd");
     }
 
-    private XYDataset createDataset(double newTcpSpeed, double newUdpSpeed) {
+/*    private XYDataset createDataset(double newTcpSpeed, double newUdpSpeed) {
         System.out.println("I am called 2");
         XYSeries tcpDS = new XYSeries("TCP");
         XYSeries udpDS = new XYSeries("UDP");
@@ -161,7 +152,7 @@ public class MainForm {
         dataset.addSeries(tcpDS);
         dataset.addSeries(udpDS);
         return dataset;
-    }
+    }*/
 
     protected boolean isCheckBoxUDPSelected() {
         return checkBoxUDP.isSelected();
