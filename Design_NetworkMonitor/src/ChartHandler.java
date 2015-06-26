@@ -13,6 +13,7 @@ public class ChartHandler {
     protected static int space;
 
     protected static void initSpeedArrayList(int space) {
+        //Something like malloc in C
         ChartHandler.space = space;
         for (int i = 0; i < space; i++) {
             tcpA.add(i, 0.0);
@@ -25,10 +26,12 @@ public class ChartHandler {
         XYSeries udpDS = new XYSeries("UDP");
         tcpA.set(space - 1, newTcpSpeed);
         udpA.set(space - 1, newUdpSpeed);
+        //Set dataset
         for (int i = 0; i < space; i++) {
             tcpDS.add(i, tcpA.get(i));
             udpDS.add(i, udpA.get(i));
         }
+        //According to space, loop the array list
         for (int i = 0; i < space - 1; i++) {
             tcpA.set(i, tcpA.get(i + 1));
             udpA.set(i, udpA.get(i + 1));

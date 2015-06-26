@@ -81,7 +81,7 @@ public class NetworkHandler {
             double udpTs = uS / 1000;
             frame.updateLinkInfo(1, tcpTs, tCount);
             frame.updateLinkInfo(2, udpTs, uCount);
-            frame.updateG(tcpTs,udpTs);
+            frame.updateChart(tcpTs, udpTs);
             //Reset speed
             tS = 0;
             uS = 0;

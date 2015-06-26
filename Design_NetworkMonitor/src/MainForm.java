@@ -3,15 +3,11 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -37,8 +33,7 @@ public class MainForm {
     private JPanel panelChart;
     private JLabel labelGuide4;
 
-/*    static ArrayList tcpA = new ArrayList();
-    static ArrayList udpA = new ArrayList();*/
+    final static int listSpace = 30;
 
     public static void main(String[] args) {
         //Auto generated
@@ -48,14 +43,14 @@ public class MainForm {
         frame.pack();
         //Custom set
         frame.setTitle("Net Monitor");
-        frame.setMinimumSize(new Dimension(650, 455));
+        frame.setMinimumSize(new Dimension(650, 650));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
     public MainForm() {
         initDeviceList();
-        ChartHandler.initSpeedArrayList(10);
+        ChartHandler.initSpeedArrayList(listSpace);
         NetworkHandler captor = new NetworkHandler();
         comboBoxNICs.addActionListener(e -> selectedNICUpdate());
         buttonAction.addActionListener(e -> {
@@ -120,39 +115,16 @@ public class MainForm {
         }
     }
 
-    public void updateG(double newTcpSpeed, double newUdpSpeed) {
-        System.out.println("I am called");
+    protected void updateChart(double newTcpSpeed, double newUdpSpeed) {
         panelChart.removeAll();
         panelChart.revalidate();
-        JFreeChart chart = ChartFactory.createXYAreaChart("Traffic history", "Time", "Speed", ChartHandler.createDataset(newTcpSpeed, newUdpSpeed), PlotOrientation.VERTICAL, true, true, false);
-        System.out.println("From 2  back");
-        ChartPanel localChartPanel = new ChartPanel(chart, false);
-        localChartPanel.setSize(panelChart.getWidth(), panelChart.getHeight());
-        localChartPanel.setVisible(true);
-        panelChart.add(localChartPanel, BorderLayout.CENTER);
+        JFreeChart chart = ChartFactory.createXYAreaChart("", "Time(S)", "Speed(KiB/S)", ChartHandler.createDataset(newTcpSpeed, newUdpSpeed), PlotOrientation.VERTICAL, true, false, false);
+        ChartPanel chartPanel = new ChartPanel(chart, false);
+        chartPanel.setSize(panelChart.getWidth(), panelChart.getHeight());
+        chartPanel.setVisible(true);
+        panelChart.add(chartPanel, BorderLayout.CENTER);
         panelChart.repaint();
-        System.out.println("Rd");
     }
-
-/*    private XYDataset createDataset(double newTcpSpeed, double newUdpSpeed) {
-        System.out.println("I am called 2");
-        XYSeries tcpDS = new XYSeries("TCP");
-        XYSeries udpDS = new XYSeries("UDP");
-        tcpA.set(4,newTcpSpeed);
-        udpA.set(4,newUdpSpeed);
-        for (int i = 0; i < 5; i++) {
-            tcpDS.add(i, (Double) tcpA.get(i));
-            udpDS.add(i, (Double) udpA.get(i));
-        }
-        for (int i = 0; i < 4;i++){
-            tcpA.set(i,tcpA.get(i+1));
-            udpA.set(i,udpA.get(i+1));
-        }
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(tcpDS);
-        dataset.addSeries(udpDS);
-        return dataset;
-    }*/
 
     protected boolean isCheckBoxUDPSelected() {
         return checkBoxUDP.isSelected();
