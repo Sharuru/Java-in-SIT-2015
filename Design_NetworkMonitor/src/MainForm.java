@@ -26,6 +26,8 @@ public class MainForm {
     private JTextArea textAreaLogs;
     private JCheckBox checkBoxTCP;
     private JCheckBox checkBoxUDP;
+    private JPanel panelChart;
+    private JLabel labelGuide4;
 
     public static void main(String[] args) {
         //Auto generated
