@@ -33,7 +33,7 @@ public class MainForm {
     private JPanel panelChart;
     private JLabel labelGuide4;
 
-    final static int listSpace = 30;
+    final static int chartLength = 30;
 
     public static void main(String[] args) {
         //Auto generated
@@ -50,7 +50,7 @@ public class MainForm {
 
     public MainForm() {
         initDeviceList();
-        ChartHandler.initSpeedArrayList(listSpace);
+        ChartHandler.initSpeedArrayList(chartLength + 1);
         NetworkHandler captor = new NetworkHandler();
         comboBoxNICs.addActionListener(e -> selectedNICUpdate());
         buttonAction.addActionListener(e -> {
