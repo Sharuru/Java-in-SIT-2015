@@ -50,7 +50,7 @@ public class MainForm {
 
     public MainForm() {
         initDeviceList();
-        ChartHandler.initSpeedArrayList(chartLength + 1);
+        ChartHandler.initSpeedArrayList(chartLength);
         NetworkHandler captor = new NetworkHandler();
         comboBoxNICs.addActionListener(e -> selectedNICUpdate());
         buttonAction.addActionListener(e -> {

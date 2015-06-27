@@ -15,8 +15,8 @@ public class ChartHandler {
 
     protected static void initSpeedArrayList(int space) {
         //Something like malloc in C
-        ChartHandler.space = space;
-        for (int i = 0; i < space; i++) {
+        ChartHandler.space = space + 1;
+        for (int i = 0; i < ChartHandler.space; i++) {
             tcpQ.offer(0.0);
             udpQ.offer(0.0);
         }
