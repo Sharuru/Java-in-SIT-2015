@@ -34,6 +34,7 @@ public class MainForm {
     private JLabel labelGuide4;
 
     final static int chartLength = 30;
+    static int logCount = 0;
 
     public static void main(String[] args) {
         //Auto generated
@@ -95,6 +96,11 @@ public class MainForm {
     protected void updateLog(String log) {
         textAreaLogs.append(getTime() + " - " + log + "\n");
         textAreaLogs.setCaretPosition(textAreaLogs.getText().length());
+        logCount++;
+        if (logCount >= 1000) {
+            textAreaLogs.setText(null);
+            logCount = 0;
+        }
     }
 
     protected void dealPacket(String s) {
